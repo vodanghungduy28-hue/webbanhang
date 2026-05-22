@@ -1,0 +1,271 @@
+/* Custom theme for webbanhang */
+:root {
+    --main-bg: #0f172a;
+    --surface: rgba(255, 255, 255, 0.96);
+    --surface-strong: rgba(255, 255, 255, 1);
+    --accent: #0ea5e9;
+    --accent-dark: #0284c7;
+    --text: #111827;
+    --text-soft: #475569;
+    --border: rgba(15, 23, 42, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text);
+    background: radial-gradient(circle at top left, rgba(14, 165, 233, 0.18), transparent 20%),
+        radial-gradient(circle at bottom right, rgba(168, 85, 247, 0.16), transparent 18%),
+        linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.06), rgba(168, 85, 247, 0.06));
+    pointer-events: none;
+}
+
+.navbar {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #04132f !important;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: #475569 !important;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent) !important;
+    transform: translateY(-1px);
+}
+
+.container.mt-4 {
+    animation: fadeUp 0.75s ease both;
+}
+
+.card,
+.table,
+form,
+footer,
+.alert,
+.navbar {
+    border-radius: 1rem !important;
+}
+
+.card {
+    border: none;
+    background: var(--surface-strong);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    animation: floatUp 0.8s ease both;
+}
+
+.product-card {
+    border: 1px solid rgba(14, 165, 233, 0.16);
+    background: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.14);
+}
+
+.product-card-body {
+    background: #ffffff;
+}
+
+.product-title {
+    color: #0f172a;
+}
+
+.product-description {
+    color: #64748b;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-header {
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.95), rgba(59, 130, 246, 0.9));
+    color: #fff;
+    border-bottom: none;
+}
+
+.card-title,
+h1,
+h5 {
+    color: #0f172a;
+}
+
+.btn {
+    border-radius: 999px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 35px rgba(14, 165, 233, 0.18);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #3b82f6, #0ea5e9);
+    border-color: transparent;
+}
+
+.btn-secondary {
+    background: #334155;
+    color: #f8fafc;
+    border-color: transparent;
+}
+
+.btn-danger,
+.btn-warning {
+    border-color: transparent;
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.table thead th {
+    border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+    color: #0f172a;
+}
+
+.table tbody tr:hover {
+    background: rgba(14, 165, 233, 0.08);
+}
+
+.form-control {
+    border-radius: 0.85rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: rgba(14, 165, 233, 0.8);
+    box-shadow: 0 0 0 0.15rem rgba(14, 165, 233, 0.15);
+}
+
+footer {
+    background: linear-gradient(135deg, #172a45, #0f172a);
+    color: #e2e8f0;
+    margin-top: 40px;
+    animation: fadeUp 0.9s ease both;
+    border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+footer .text-uppercase {
+    color: #ffffff;
+}
+
+footer a {
+    color: #cbd5e1;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #ffffff;
+}
+
+footer .bg-dark {
+    background: #111f34 !important;
+}
+
+img.img-fluid,
+img {
+    border-radius: 1rem;
+}
+
+.product-card {
+    overflow: hidden;
+}
+
+.product-card-image {
+    overflow: hidden;
+    border-radius: 1.25rem 1.25rem 0 0;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    margin-bottom: 0;
+    height: 380px;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.06);
+}
+
+.product-detail-image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+}
+
+.alert {
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: rgba(238, 242, 255, 0.9);
+}
+
+input[type="file"] {
+    padding: 0.75rem 0.9rem;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floatUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        border-radius: 0 0 1rem 1rem;
+    }
+}
