@@ -23,6 +23,10 @@
                             <span class="product-price fw-bold text-primary"><?php echo htmlspecialchars($product->price, ENT_QUOTES, 'UTF-8'); ?> USD</span>
                             <span class="badge bg-info text-dark"><?php echo htmlspecialchars($product->category_name, ENT_QUOTES, 'UTF-8'); ?></span>
                         </div>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="/webbanhang/Product/addToCart/<?php echo $product->id; ?>" class="btn btn-outline-primary btn-sm">Thêm vào giỏ</a>
+                            <a href="/webbanhang/Product/buyNow/<?php echo $product->id; ?>" class="btn btn-success btn-sm">Mua ngay</a>
+                        </div>
                     </div>
                 </article>
             </div>

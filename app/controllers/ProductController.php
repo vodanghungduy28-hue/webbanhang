@@ -136,12 +136,12 @@ class ProductController
         }
         return $target_file;
     }
-    public function addToCart($id)
+
+    private function addProductToCartById($id)
     {
         $product = $this->productModel->getProductById($id);
         if (!$product) {
-            echo "Không tìm thấy sản phẩm.";
-            return;
+            return false;
         }
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
@@ -156,7 +156,25 @@ class ProductController
                 'image' => $product->image
             ];
         }
+        return true;
+    }
+
+    public function addToCart($id)
+    {
+        if (!$this->addProductToCartById($id)) {
+            echo "Không tìm thấy sản phẩm.";
+            return;
+        }
         header('Location: /webbanhang/Product/cart');
+    }
+
+    public function buyNow($id)
+    {
+        if (!$this->addProductToCartById($id)) {
+            echo "Không tìm thấy sản phẩm.";
+            return;
+        }
+        header('Location: /webbanhang/Product/checkout');
     }
 
     public function cart()
