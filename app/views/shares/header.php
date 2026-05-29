@@ -12,6 +12,18 @@
 </head>
 
 <body>
+    <?php
+    $cartCount = 0;
+    $cartTotal = 0;
+    if (!empty($_SESSION['cart']) && is_array($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $item) {
+            $quantity = isset($item['quantity']) ? (int)$item['quantity'] : 0;
+            $price = isset($item['price']) ? (float)$item['price'] : 0;
+            $cartCount += $quantity;
+            $cartTotal += $quantity * $price;
+        }
+    }
+    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/webbanhang/Product/">THEGIOIDIDONGFAKE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,6 +39,19 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/webbanhang/Category/">Quản lý danh mục</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/webbanhang/Product/cart">
+                        <span role="img" aria-label="Giỏ hàng">🛒</span> Giỏ hàng
+                        <span class="badge badge-pill badge-primary">
+                            <?php echo $cartCount > 0 ? $cartCount : 0; ?>
+                        </span>
+                        <?php if ($cartCount > 0): ?>
+                            <small class="text-muted">(<?php echo number_format($cartTotal, 2); ?> USD)</small>
+                        <?php endif; ?>
+                    </a>
                 </li>
             </ul>
         </div>

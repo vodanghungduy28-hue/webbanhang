@@ -11,14 +11,7 @@
                 </p>
             </div>
             <!-- Cột liên kết nhanh -->
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="text-uppercase">Liên kết nhanh</h5>
-                <ul class="list-unstyled mb-0">
-                    <li><a href="/webbanhang/Product/" class="text-dark">Sản phẩm</a></li>
-                    <li><a href="/webbanhang/Category/" class="text-dark">Danh mục</a></li>
-                    <li><a href="/webbanhang/Product/manage" class="text-dark">Quản lý sản phẩm</a></li>
-                </ul>
-            </div>
+           
             <!-- Cột mạng xã hội -->
             <div class="col-lg-3 col-md-6 mb-4">
                 <h5 class="text-uppercase">Liên hệ</h5>

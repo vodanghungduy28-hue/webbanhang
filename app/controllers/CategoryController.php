@@ -17,6 +17,7 @@ class CategoryController
     public function list()
     {
         $categories = $this->categoryModel->getCategories();
+        $error = $_GET['error'] ?? '';
         include 'app/views/category/list.php';
     }
     public function add()
@@ -70,11 +71,19 @@ class CategoryController
     }
     public function delete($id)
     {
+        if ($this->categoryModel->hasProducts($id)) {
+            $message = urlencode('Không thể xóa danh mục này vì còn sản phẩm thuộc danh mục.');
+            header('Location: /webbanhang/Category?error=' . $message);
+            exit;
+        }
+
         if ($this->categoryModel->deleteCategory($id)) {
             header('Location: /webbanhang/Category');
             exit;
         } else {
-            echo "Đã xảy ra lỗi khi xóa danh mục.";
+            $message = urlencode('Đã xảy ra lỗi khi xóa danh mục.');
+            header('Location: /webbanhang/Category?error=' . $message);
+            exit;
         }
     }
 }

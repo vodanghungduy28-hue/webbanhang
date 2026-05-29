@@ -9,7 +9,10 @@ class CategoryModel
     }
     public function getCategories()
     {
-        $query = "SELECT id, name, description FROM " . $this->table_name;
+        $query = "SELECT c.id, c.name, c.description, COUNT(p.id) AS product_count
+FROM " . $this->table_name . " c
+LEFT JOIN product p ON p.category_id = c.id
+GROUP BY c.id, c.name, c.description";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -21,6 +24,14 @@ class CategoryModel
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+    public function hasProducts($id)
+    {
+        $query = "SELECT COUNT(*) FROM product WHERE category_id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
     public function addCategory($name, $description)
     {
