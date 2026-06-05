@@ -16,10 +16,13 @@ if (!file_exists('app/controllers/' . $controllerName . '.php')) {
     die('Controller not found');
 }
 require_once 'app/controllers/' . $controllerName . '.php';
+
 $controller = new $controllerName();
+
 if (!method_exists($controller, $action)) {
     // Xử lý không tìm thấy action
     die('Action not found');
 }
+
 // Gọi action với các tham số còn lại (nếu có)
 call_user_func_array([$controller, $action], array_slice($url, 2));

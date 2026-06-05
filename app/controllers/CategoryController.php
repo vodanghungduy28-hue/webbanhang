@@ -10,22 +10,37 @@ class CategoryController
         $this->db = (new Database())->getConnection();
         $this->categoryModel = new CategoryModel($this->db);
     }
+    private function ensureAdmin()
+    {
+        if (!class_exists('SessionHelper')) {
+            require_once __DIR__ . '/../helpers/SessionHelper.php';
+        }
+        SessionHelper::start();
+        if (!SessionHelper::isAdmin()) {
+            header('Location: /webbanhang/Product/');
+            exit;
+        }
+    }
     public function index()
     {
+        $this->ensureAdmin();
         $this->list();
     }
     public function list()
     {
+        $this->ensureAdmin();
         $categories = $this->categoryModel->getCategories();
         $error = $_GET['error'] ?? '';
         include 'app/views/category/list.php';
     }
     public function add()
     {
+        $this->ensureAdmin();
         include 'app/views/category/add.php';
     }
     public function save()
     {
+        $this->ensureAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -41,6 +56,7 @@ class CategoryController
     }
     public function edit($id)
     {
+        $this->ensureAdmin();
         $category = $this->categoryModel->getCategoryById($id);
         if ($category) {
             include 'app/views/category/edit.php';
@@ -50,6 +66,7 @@ class CategoryController
     }
     public function update()
     {
+        $this->ensureAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $name = $_POST['name'] ?? '';
@@ -71,6 +88,7 @@ class CategoryController
     }
     public function delete($id)
     {
+        $this->ensureAdmin();
         if ($this->categoryModel->hasProducts($id)) {
             $message = urlencode('Không thể xóa danh mục này vì còn sản phẩm thuộc danh mục.');
             header('Location: /webbanhang/Category?error=' . $message);

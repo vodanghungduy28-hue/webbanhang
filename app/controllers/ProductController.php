@@ -12,9 +12,34 @@ class ProductController
         $this->db = (new Database())->getConnection();
         $this->productModel = new ProductModel($this->db);
     }
+    private function ensureAdmin()
+    {
+        if (!class_exists('SessionHelper')) {
+            require_once __DIR__ . '/../helpers/SessionHelper.php';
+        }
+        SessionHelper::start();
+        if (!SessionHelper::isAdmin()) {
+            header('Location: /webbanhang/Product/');
+            exit;
+        }
+    }
+    private function ensureLoggedIn()
+    {
+        if (!class_exists('SessionHelper')) {
+            require_once __DIR__ . '/../helpers/SessionHelper.php';
+        }
+        SessionHelper::start();
+        if (!SessionHelper::isLoggedIn()) {
+            header('Location: /webbanhang/account/login');
+            exit;
+        }
+    }
     public function index()
     {
-        $products = $this->productModel->getProducts();
+        $search = $_GET['search'] ?? '';
+        $categoryId = $_GET['category_id'] ?? null;
+        $products = $this->productModel->getProducts($search, $categoryId);
+        $categories = (new CategoryModel($this->db))->getCategories();
         include 'app/views/product/list.php';
     }
     public function show($id)
@@ -28,16 +53,19 @@ class ProductController
     }
     public function manage()
     {
+        $this->ensureAdmin();
         $products = $this->productModel->getProducts();
         include 'app/views/product/manage.php';
     }
     public function add()
     {
+        $this->ensureAdmin();
         $categories = (new CategoryModel($this->db))->getCategories();
         include_once 'app/views/product/add.php';
     }
     public function save()
     {
+        $this->ensureAdmin();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'] ?? '';
             $description = $_POST['description'] ?? '';
@@ -66,6 +94,7 @@ class ProductController
     }
     public function edit($id)
     {
+        $this->ensureAdmin();
         $product = $this->productModel->getProductById($id);
         $categories = (new CategoryModel($this->db))->getCategories();
         if ($product) {
@@ -76,6 +105,7 @@ class ProductController
     }
     public function update()
     {
+        $this->ensureAdmin();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $name = $_POST['name'];
@@ -106,6 +136,7 @@ class ProductController
     }
     public function delete($id)
     {
+        $this->ensureAdmin();
         if ($this->productModel->deleteProduct($id)) {
             header('Location: /webbanhang/Product/manage');
             exit;
@@ -225,11 +256,13 @@ class ProductController
 
     public function checkout()
     {
+        $this->ensureLoggedIn();
         include 'app/views/product/checkout.php';
     }
 
     public function processCheckout()
     {
+        $this->ensureLoggedIn();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $phone = $_POST['phone'];
